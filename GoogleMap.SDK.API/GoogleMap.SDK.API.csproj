@@ -115,46 +115,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commons\BaseRequest.cs" />
-    <Compile Include="Commons\BaseService.cs" />
-    <Compile Include="Commons\Enums\Avoid.cs" />
-    <Compile Include="Commons\Enums\FindPlaceInputType.cs" />
-    <Compile Include="Commons\Enums\TrafficMode.cs" />
-    <Compile Include="Commons\Models\Latlng.cs" />
-    <Compile Include="Commons\Models\Location.cs" />
     <Compile Include="GoogleAPIContext.cs" />
     <Compile Include="GoogleMapAPIRegistration.cs" />
-    <Compile Include="IGoogleAPIContext.cs" />
-    <Compile Include="Services\Direction\Request\DirectionNewRequest.cs" />
-    <Compile Include="Services\Direction\Request\DirectionRequest.cs" />
-    <Compile Include="Services\Direction\Response\DirectionNewResponse.cs" />
-    <Compile Include="Services\Direction\Response\DirectionResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Direction\DirectionService.cs" />
-    <Compile Include="Services\Direction\IDirectionService.cs" />
-    <Compile Include="Services\Geocoding\GeocodingService.cs" />
-    <Compile Include="Services\Geocoding\IGeocodingService.cs" />
-    <Compile Include="Services\Geocoding\Request\GeocodingRequest.cs" />
-    <Compile Include="Services\Geocoding\Response\GeocodingResponse.cs" />
-    <Compile Include="Services\Place\FindPlace\Request\FindPlaceRequest.cs" />
-    <Compile Include="Services\Place\FindPlace\Response\FindPlaceResponse.cs" />
-    <Compile Include="Services\Place\IPlaceService.cs" />
-    <Compile Include="Services\Place\NearBySearch\Request\NearBySearchRequest.cs" />
-    <Compile Include="Services\Place\NearBySearch\Response\NearBySearchResponse.cs" />
-    <Compile Include="Services\Place\PlaceAutoComplete\Request\PlaceAutoCompleteRequest.cs" />
-    <Compile Include="Services\Place\PlaceAutoComplete\Response\PlaceAutoCompleteRespnse.cs" />
-    <Compile Include="Services\Place\PlaceDetail\Request\PlaceDetailRequest.cs" />
-    <Compile Include="Services\Place\PlaceDetail\Response\PlaceDetailResponse.cs" />
-    <Compile Include="Services\Place\PlacePhoto\Request\PlacePhotoRequest.cs" />
-    <Compile Include="Services\Place\PlaceService.cs" />
+    <Compile Include="Services\DirectionService.cs" />
+    <Compile Include="Services\GeocodingService.cs" />
+    <Compile Include="Services\PlaceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Services\Place\PlacePhoto\Response\" />
+    <ProjectReference Include="..\GoogleMap.SDK.Contract\GoogleMap.SDK.Contract.csproj">
+      <Project>{a79cf272-9ee2-46e7-a667-1f972f662df2}</Project>
+      <Name>GoogleMap.SDK.Contract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

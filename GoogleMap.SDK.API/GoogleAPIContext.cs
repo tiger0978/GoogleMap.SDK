@@ -1,6 +1,8 @@
 ﻿using GoogleMap.SDK.API.Services.Direction;
 using GoogleMap.SDK.API.Services.Geocoding;
 using GoogleMap.SDK.API.Services.Place;
+using GoogleMap.SDK.Contracts.GoogleAPI;
+using GoogleMap.SDK.Contracts.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMap.SDK.API
 {
-    public class GoogleAPIContext:IGoogleAPIContext
+    public class GoogleAPIContext: IGoogleAPIContext
     {
         private static string _apiKey;
         public static String APIKey => _apiKey;

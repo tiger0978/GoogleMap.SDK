@@ -1,9 +1,9 @@
-﻿using GoogleMap.SDK.API.Commons.Models;
-using GoogleMap.SDK.API.Enums;
-using GoogleMap.SDK.API.Services.Direction;
-using GoogleMap.SDK.API.Services.Direction.Request;
+﻿using GoogleMap.SDK.API.Services.Direction;
 using GoogleMap.SDK.API.Services.Geocoding;
 using GoogleMap.SDK.API.Services.Place;
+using GoogleMap.SDK.Contracts.Commons.Enums;
+using GoogleMap.SDK.Contracts.Commons.Models;
+using GoogleMap.SDK.Contracts.GoogleAPI;
 using IoC_Container;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -33,8 +33,8 @@ namespace GoogleMap.SDK.API
             IGoogleAPIContext context = provides.GetService<IGoogleAPIContext>();
             var result = await context.Geocoding.GetGeoCodingAsync("台北101");
 
-            Location ori = new Location() { latLng = new Latlng { latitude = (float)37.419734, longitude =(float)-122.0827784 } };
-            Location des = new Location() { latLng = new Latlng { latitude = (float)37.417670, longitude = (float)-122.079595 } };
+            Location ori = new Location() { latLng = new Latlng { latitude = 37.419734, longitude = -122.0827784 } };
+            Location des = new Location() { latLng = new Latlng { latitude = 37.417670, longitude = -122.079595 } };
 
             var route = await context.Direction.GetDirectionAsync(ori, des, TrafficMode.DRIVE, new List<Avoid>() { Avoid.highways });
 

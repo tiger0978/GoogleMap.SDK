@@ -1,6 +1,8 @@
 ﻿using GoogleMap.SDK.API.Services.Direction;
 using GoogleMap.SDK.API.Services.Geocoding;
 using GoogleMap.SDK.API.Services.Place;
+using GoogleMap.SDK.Contracts.GoogleAPI;
+using GoogleMap.SDK.Contracts.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
