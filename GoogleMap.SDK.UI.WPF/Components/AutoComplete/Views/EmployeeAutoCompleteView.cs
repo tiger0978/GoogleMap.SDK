@@ -10,9 +10,9 @@ using GoogleMap.SDK.Core;
 using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
 
 
-namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.Views
+namespace GooleMap.SDK.UI.WPF.Components.AutoComplete.Views
 {
-    public class EmployeeAutoCompleteView : BaseWinformAutoCompleteView<AutoCompleteModel>
+    public class EmployeeAutoCompleteView : BaseWPFAutoCompleteView<AutoCompleteModel>
     {
         public EmployeeAutoCompleteView(IPresenterFactory presenterFactory) : base(presenterFactory)
         {

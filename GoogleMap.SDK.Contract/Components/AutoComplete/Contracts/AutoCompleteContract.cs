@@ -17,7 +17,6 @@ namespace GooleMap.SDK.Contracts.Components.AutoComplete.Contracts
             /// </summary>
             /// <param name="item"></param>
             void SelectedItem(object item); 
-
             void InitializeComponent();
             void UpdateListBox(List<AutoCompleteModel> datas);
             void NotifySelectedItemResponse(object data);

@@ -38,7 +38,10 @@ namespace GoogleMap.SDK.API
 
             var route = await context.Direction.GetDirectionAsync(ori, des, TrafficMode.DRIVE, new List<Avoid>() { Avoid.highways });
 
-
+            foreach(var point in route.routes[0].polyline.encodedPolyline)
+            {
+                Console.WriteLine(point.latitude +"," + point.longitude);
+            }
             //IGeocodingService service = new GeocodingService();
             //var result = await service.GetGeoCodingAsync("台北101");
 

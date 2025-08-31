@@ -24,17 +24,14 @@ namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
         private IGoogleAPIContext _context;
         private EmployeeAutoCompleteView _autoCompleteView;
         private BaseWinformAutoCompleteView<AutoCompleteModel> _baseautoCompleteView;
-
-
-
-        GMapsUtility map = null;
+        GoogleMapControl map = null;
 
         public Form1(IGoogleAPIContext context, IEnumerable<IAutoCompleteView> autoCompleteViews)
         {
             _context = context;
             _autoCompleteView = (EmployeeAutoCompleteView)autoCompleteViews.FirstOrDefault(x=>x is EmployeeAutoCompleteView);
             InitializeComponent();
-            map = new GMapsUtility();
+            map = new GoogleMapControl();
             this.Controls.Add(_autoCompleteView);
             _autoCompleteView.SelectedItem += GetDataInfomation;
             //this.Controls.Add(map);

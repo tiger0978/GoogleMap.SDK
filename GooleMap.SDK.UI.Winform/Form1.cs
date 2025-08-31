@@ -18,7 +18,7 @@ namespace GooleMap.SDK.UI.Winform
         {
             InitializeComponent();
             
-            GMapsUtility map = new GMapsUtility();
+            GoogleMapControl map = new GoogleMapControl();
             this.Controls.Add(map);
             map.CreateMarker(25.08042519244416, 121.52658741132015);
         }

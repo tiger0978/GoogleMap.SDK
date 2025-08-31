@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:GoogleMap.SDK.UI.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomToolTipStyle.xaml" />
+                <ResourceDictionary Source="MapInfoToolTipStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,5 +1,6 @@
 ﻿using Http;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace GoogleMap.SDK.API.Commons
 {
-    
     public class BaseService
     {
         private string apiKey;
@@ -29,9 +29,9 @@ namespace GoogleMap.SDK.API.Commons
             var response = await httpRequest.GetAsync<T>(url);
             return response;
         }
-        public async Task<T> PostAsync<T>(string url, object data)
+        public async Task<T> PostAsync<T>(string url, object data, JsonSerializerSettings settings = null)
         {
-            var response = await httpRequest.PostAsync<T>(url, data);
+            var response = await httpRequest.PostAsync<T>(url, data, settings);
             return response;
         }
 

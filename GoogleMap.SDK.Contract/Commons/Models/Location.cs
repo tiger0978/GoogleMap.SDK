@@ -9,6 +9,11 @@ namespace GoogleMap.SDK.Contracts.Commons.Models
 {
     public class Location
     {
+        public Location() { }
+        public Location(double lat, double lng)
+        {
+            latLng = new Latlng(lat, lng);
+        }
         public Latlng latLng { get; set; } 
     }
 }

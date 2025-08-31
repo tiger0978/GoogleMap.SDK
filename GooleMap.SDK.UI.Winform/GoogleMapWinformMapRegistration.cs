@@ -1,4 +1,6 @@
-﻿using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
+﻿using GooleMap.SDK.Contract;
+using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
+using GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap;
 using GooleMap.SDK.UI.Winform.Components.AutoComplete.Views;
 using IoC_Container;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,7 @@ namespace GooleMap.SDK.UI.Winform
         {
             services.AddTransient<IAutoCompleteView, PlaceAutoCompleteView>();
             services.AddTransient<IAutoCompleteView, EmployeeAutoCompleteView>();
+            services.AddTransient<IGMap, GoogleMapControl>();
         }
     }
 }

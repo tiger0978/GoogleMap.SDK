@@ -5,11 +5,14 @@ using GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Request;
 using GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response;
 using GoogleMap.SDK.Contracts.Services;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleMap.SDK.Contract.Utility.Converter;
 
 namespace GoogleMap.SDK.API.Services.Direction
 {
@@ -24,14 +27,26 @@ namespace GoogleMap.SDK.API.Services.Direction
         public async Task<DirectionNewResponse> GetDirectionAsync(Location origin, Location destination, TrafficMode mode, List<Avoid> avoids, List<Location> wayPoints)
         {
             DirectionNewRequest direction = new DirectionNewRequest(origin, destination, mode, avoids, wayPoints);
-            var response = await PostAsync<DirectionNewResponse>(url, direction);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = { new PolylineConverter() }
+            };
+
+            var response = await PostAsync<DirectionNewResponse>(url, direction, settings);
             return response;
         }
 
         public async Task<DirectionNewResponse> GetDirectionAsync(string origin, string destination, TrafficMode mode, List<Avoid> avoids, List<string> wayPoints)
         {
             DirectionNewRequest direction = new DirectionNewRequest(origin, destination, mode, avoids, wayPoints);
-            var response = await PostAsync<DirectionNewResponse>(url, direction);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = { new PolylineConverter() }
+            };
+
+            var response = await PostAsync<DirectionNewResponse>(url, direction, settings);
             return response;
         }
     }

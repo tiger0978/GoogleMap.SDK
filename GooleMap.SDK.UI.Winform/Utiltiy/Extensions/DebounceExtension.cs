@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
-
-namespace GooleMap.SDK.UI.Winform
-{
-    public static class TimerService
+namespace GooleMap.SDK.UI.Winform.Utility.Extentsions 
+{ 
+    public static class DebounceExtension
     {
         public static Timer _timer = null;
         public static Action<object> _callback = null;

@@ -117,21 +117,20 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GMapsUtility.cs">
+    <Compile Include="Components\GoogleMap\GoogleMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MapOverlays\GoogleMapMarkerOverlay.cs" />
     <Compile Include="MapOverlays\GoogleMapRouteOverlay.cs" />
-    <Compile Include="IGMap.cs" />
     <Compile Include="Models\GMarker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimerService.cs" />
+    <Compile Include="Utiltiy\Extensions\DebounceExtension.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GMapsUtility.resx">
-      <DependentUpon>GMapsUtility.cs</DependentUpon>
+    <EmbeddedResource Include="Components\GoogleMap\GoogleMapControl.resx">
+      <DependentUpon>GoogleMapControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

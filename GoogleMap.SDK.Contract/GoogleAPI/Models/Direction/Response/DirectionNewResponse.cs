@@ -34,7 +34,7 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response
 
         public class Polyline
         {
-            public string encodedPolyline { get; set; }
+            public IEnumerable<Latlng> encodedPolyline { get; set; }
         }
 
         public class Viewport

@@ -1,4 +1,5 @@
 ﻿using GooleMap.SDK.Contracts.Components.AutoComplete.Models;
+using GooleMap.SDK.UI.Winform.Utility.Extentsions;
 using IoC_Container;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,20 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.Views
     public abstract class BaseWinformAutoCompleteView<T> : TextBox, IAutoCompleteView
     {
         protected IAutoCompletePresenter _presenter;
-
         private ListBox _listBox;
         private bool _isAdded;
         private List<AutoCompleteModel> _values;
         private String _formerValue = String.Empty;
         public EventHandler<T> SelectedItem;
+        public List<AutoCompleteModel> values { get => _values; set => _values = value; }
+
+
         public BaseWinformAutoCompleteView(IPresenterFactory presenterFactory)
         {
             InitializeComponent();
             ResetListBox();
         }
+
 
         public void InitializeComponent()
         {
@@ -90,7 +94,6 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.Views
             }
         }
 
-        public List<AutoCompleteModel> values { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private void _listBox_DoubleClick(object sender, EventArgs e)
         {
