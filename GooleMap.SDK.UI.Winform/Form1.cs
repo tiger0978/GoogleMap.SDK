@@ -17,17 +17,6 @@ namespace GooleMap.SDK.UI.Winform
         public Form1()
         {
             InitializeComponent();
-            
-            GoogleMapControl map = new GoogleMapControl();
-            this.Controls.Add(map);
-            map.CreateMarker(25.08042519244416, 121.52658741132015);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var place = textBox1.Text;
-
-        }
-
     }
 }

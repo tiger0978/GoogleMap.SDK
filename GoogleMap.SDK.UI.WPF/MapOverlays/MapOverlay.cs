@@ -20,12 +20,12 @@ using Path = System.Windows.Shapes.Path;
 
 namespace GoogleMap.SDK.UI.WPF.MapOverlays
 {
-    public class MapOverlay : IOverlayNew
+    public class MapOverlay : GMapMarker, IOverlayNew
     {
         public List<GMapMarker> markers = new List<GMapMarker>();
         public List<GMapMarker> routes = new List<GMapMarker>();
         public string overLayId;
-        public MapOverlay(string overLayId) 
+        public MapOverlay(string overLayId) : base(default)
         {
             this.overLayId = overLayId;
         }
@@ -52,16 +52,8 @@ namespace GoogleMap.SDK.UI.WPF.MapOverlays
             }
         }
 
-        public void SetRouteOverLay(IEnumerable<List<Latlng>> routes, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void SetRouteOverLay(IEnumerable<List<Latlng>> routes)
         {
-            //var firstRoute = routes.ToList()[0];
-            //var startPoint = new Location(firstRoute.First().latitude, firstRoute.First().longitude);
-            //var endPoint = new Location(firstRoute.Last().latitude, firstRoute.Last().longitude);
-            //var locations = new List<Location>();
-            //locations.Add(startPoint);
-            //locations.Add(endPoint);
-            //SetMarkerOverLay(locations, GMarkerGoogleType.red_dot, toolTip);
-
             foreach (var routePoint in routes)
             {
                 var routeName = PolylineEncoder.EncodeCoordinates(routePoint);

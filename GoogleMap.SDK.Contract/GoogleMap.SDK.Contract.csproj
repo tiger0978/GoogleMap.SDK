@@ -82,6 +82,7 @@
     <Compile Include="Components\AutoComplete\Contracts\AutoCompleteContract.cs" />
     <Compile Include="Components\AutoComplete\Models\AutoCompleteModel.cs" />
     <Compile Include="Components\Gmap\Contracts\IGMap.cs" />
+    <Compile Include="Components\Gmap\Contracts\IMapOverlayService.cs" />
     <Compile Include="Components\Gmap\Contracts\IOverlay.cs" />
     <Compile Include="Components\Gmap\Contracts\IOverlayNew.cs" />
     <Compile Include="GoogleAPI\IGoogleAPIContext.cs" />

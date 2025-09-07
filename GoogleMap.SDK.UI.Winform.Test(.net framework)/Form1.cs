@@ -17,25 +17,25 @@ using GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response;
 using GoogleMap.SDK.Contracts.Commons.Models;
 using GoogleMap.SDK.Contracts.Commons.Enums;
 using GoogleMap.SDK.Contracts.GoogleAPI;
+using GooleMap.SDK.Contract;
+using GoogleMap.SDK.Contracts.GoogleAPI.Models.PlaceDetail.Response;
 namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
 {
     public partial class Form1 : Form
     {
         private IGoogleAPIContext _context;
-        private EmployeeAutoCompleteView _autoCompleteView;
+        private PlaceAutoCompleteView _autoCompleteView;
         private BaseWinformAutoCompleteView<AutoCompleteModel> _baseautoCompleteView;
-        GoogleMapControl map = null;
-
-        public Form1(IGoogleAPIContext context, IEnumerable<IAutoCompleteView> autoCompleteViews)
+        IGMap _gmapControl;
+        public Form1(IGMap gmapControl, IGoogleAPIContext context, IEnumerable<IAutoCompleteView> autoCompleteViews)
         {
             _context = context;
-            _autoCompleteView = (EmployeeAutoCompleteView)autoCompleteViews.FirstOrDefault(x=>x is EmployeeAutoCompleteView);
+            _autoCompleteView = (PlaceAutoCompleteView)autoCompleteViews.FirstOrDefault(x=>x is PlaceAutoCompleteView);
             InitializeComponent();
-            map = new GoogleMapControl();
+            _gmapControl = gmapControl;
             this.Controls.Add(_autoCompleteView);
+            this.flowLayoutPanel1.Controls.Add((Control)_gmapControl);
             _autoCompleteView.SelectedItem += GetDataInfomation;
-            //this.Controls.Add(map);
-
         }
 
         private async Task<DirectionNewResponse> GetDirectAsync()
@@ -48,18 +48,30 @@ namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            //var target = textBox1.Text;
-            //var place = await _context.Place.FindPlaceAsync(target, FindPlaceInputType.textquery);
-            //var location = place.candidates[0].geometry.location;
+            var overlayName = textBox1.Text;
+            if (string.IsNullOrEmpty(overlayName))
+            {
+                overlayName = "MapOverlay";
+            }
+            var target = _autoCompleteView.Text;
+            var place = await _context.Place.FindPlaceAsync(target, FindPlaceInputType.textquery);
+            var location = place.candidates[0].geometry.location;
+            _gmapControl.CreateMarker(overlayName, location.lat, location.lng);
             //map.CreateMarker(location.lat, location.lng);
         }
-        private async void GetDataInfomation(object sender, AutoCompleteModel e)
+        private async void GetDataInfomation(object sender, PlaceDetailResponse e)
         {
-            Console.WriteLine(e.Value);
+            Console.WriteLine(e.result.name);
             //var target = textBox1.Text;
             //var place = await _context.Place.FindPlaceAsync(target, FindPlaceInputType.textquery);
             //var location = place.candidates[0].geometry.location;
             //map.CreateMarker(location.lat, location.lng);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _gmapControl.HideOverlay("MapOverlay");
+        }
+   
     }
 }

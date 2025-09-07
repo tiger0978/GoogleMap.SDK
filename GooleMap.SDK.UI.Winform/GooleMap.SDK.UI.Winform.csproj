@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="MapOverlays\GoogleMapMarkerOverlay.cs" />
     <Compile Include="MapOverlays\GoogleMapRouteOverlay.cs" />
+    <Compile Include="MapOverlays\MapOverlay.cs" />
     <Compile Include="Models\GMarker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

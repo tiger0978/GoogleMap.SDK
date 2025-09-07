@@ -12,9 +12,9 @@ namespace GoogleMap.SDK.Core
     public class OverlayFactoryNew
     {
         private static Dictionary<string, IOverlayNew> _overlays = new Dictionary<string, IOverlayNew>();
-        public static IOverlay Create()
+        public static IOverlayNew Create()
         {
-            return Create();
+            return Create("MapOverlay");
         }
         public static IOverlayNew Create(string overlayId)
         {

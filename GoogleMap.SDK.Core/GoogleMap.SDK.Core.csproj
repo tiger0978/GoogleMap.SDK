@@ -111,6 +111,7 @@
     <Compile Include="Components\AutoComplete\Presenters\EmployeeAutoCompletePresenter.cs" />
     <Compile Include="Components\AutoComplete\Presenters\PlaceAutoCompletePresenter.cs" />
     <Compile Include="GoogleMapCoreRegistration.cs" />
+    <Compile Include="MapOverlayService.cs" />
     <Compile Include="OverlayFactory.cs" />
     <Compile Include="OverlayFactoryNew.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

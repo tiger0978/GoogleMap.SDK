@@ -4,8 +4,10 @@ using GMap.NET.WindowsForms;
 using GoogleMap.SDK.Contract.Commons.Enums;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 using GoogleMap.SDK.Contracts.Commons.Models;
+using GoogleMap.SDK.Core;
 using GooleMap.SDK.Contract;
 using GooleMap.SDK.Core;
+using GooleMap.SDK.UI.Winform.MapOverlays;
 using GooleMap.SDK.UI.Winform.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,7 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
     {
         private GMapControl gMapControl;
         protected static Dictionary<string, AMapOverlay> OverLays = new Dictionary<string, AMapOverlay>();
+        private readonly IMapOverlayService _mapOverlayService;
 
         public Location Position
         {
@@ -37,15 +40,25 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
         public delegate void GMarkerClick(GMarker item, MouseEventArgs e);
         public event GMarkerClick MarkerEvent;
 
-        public GoogleMapControl()
+        public GoogleMapControl(IMapOverlayService mapOverlayService)
         {
             InitializeComponent();
+            _mapOverlayService = mapOverlayService;
+            this.ParentChanged += OnParentChanged;  
+        }
+
+        private void OnParentChanged(object sender,EventArgs e)
+        {
+            Panel parentPanel = this.Parent as Panel;
+            this.Width = parentPanel.Width;
+            this.Height = parentPanel.Height;
         }
 
         private void InitializeComponent()
         {
             this.gMapControl = new GMapControl();
             this.gMapControl.OnMarkerClick += GMapControl_OnMarkerClick;
+
             this.SuspendLayout();
             // 
             // gMapControl
@@ -97,149 +110,120 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             MarkerEvent.Invoke(result, e);
         }
 
-        public void CreateRoute(IEnumerable<Latlng> points, object toolTip = null)
+        public void CreateRoute(IEnumerable<Latlng> routePoints)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(points, GMarkerGoogleType.none, toolTip);
+            var routes = new List<List<Latlng>>();
+            routes.Add(routePoints.ToList());
+            BuildRoute(default, routes);
         }
-        public void CreateRoute(IEnumerable<List<Latlng>> routePoints, object toolTip = null)
+        public void CreateRoute(List<List<Latlng>> routes)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(routePoints, GMarkerGoogleType.none, toolTip);
+            BuildRoute(default, routes);
         }
-        public void CreateRoute(IEnumerable<Location> locations, object toolTip = null)
+        public void CreateRoute(IEnumerable<Location> locations)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(locations, GMarkerGoogleType.none, toolTip);
+            var routePoint = locations.Select(x => new Latlng(x.latLng.latitude, x.latLng.longitude)).ToList();
+            var routes = new List<List<Latlng>>();
+            routes.Add(routePoint);
+            BuildRoute(default, routes);
         }
-        public void CreateRoute(string overlayName, IEnumerable<Latlng> points, object toolTip = null)
+        public void CreateRoute(string overlayName, IEnumerable<Latlng> routePoints)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(overlayName, MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(points, GMarkerGoogleType.none, toolTip);
+            var routes = new List<List<Latlng>>();
+            routes.Add(routePoints.ToList());
+            BuildRoute(overlayName, routes);
         }
-        public void CreateRoute(string overlayName, IEnumerable<List<Latlng>> routePoints, object toolTip = null)
+        public void CreateRoute(string overlayName, List<List<Latlng>> routes)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(overlayName, MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(routePoints, GMarkerGoogleType.none, toolTip);
+            BuildRoute(overlayName, routes);
         }
-        public void CreateRoute(string overlayName, IEnumerable<Location> locations, object toolTip = null)
+        public void CreateRoute(string overlayName, IEnumerable<Location> locations)
         {
-            IOverlay routeOverlay = OverlayFactory.Create(overlayName, MapOverlayType.Route);
-            TryAddOverlayInGmapControlOverlays(routeOverlay);
-            routeOverlay.SetOverLay(locations, GMarkerGoogleType.none, toolTip);
+            var routePoint = locations.Select(x => new Latlng(x.latLng.latitude, x.latLng.longitude)).ToList();
+            var routes = new List<List<Latlng>>();
+            routes.Add(routePoint);
+            BuildRoute(overlayName, routes);
         }
 
         public void CreateMarker(double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(lat, lng, markerType, toolTip);
-            SwitchGMapView(lat, lng);
+            var location = new Location(lat, lng);
+            var locations = new List<Location>();
+            locations.Add(location);
+            BuildMarker("MapOverlay", locations, markerType, toolTip);
         }
         public void CreateMarker(IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(list, markerType, toolTip);
-            var move = list.FirstOrDefault();
-            SwitchGMapView(move.latitude, move.longitude);
+            var locations = list.Select(x => new Location(x.latitude, x.longitude)).ToList();
+            BuildMarker(default, locations, markerType, toolTip);
         }
         public void CreateMarker(IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(locations, markerType, toolTip);
-            var move = locations.FirstOrDefault();
-            SwitchGMapView(move.latLng.latitude, move.latLng.longitude);
+            BuildMarker(default, locations, markerType, toolTip);
         }
         public void CreateMarker(string overlayName, double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(lat, lng, markerType, toolTip);
-            SwitchGMapView(lat, lng);
+            var location = new Location(lat, lng);
+            var locations = new List<Location>();
+            locations.Add(location);
+            BuildMarker(overlayName, locations, markerType, toolTip);
         }
         public void CreateMarker(string overlayName, IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(list, markerType, toolTip);
-            var move = list.FirstOrDefault();
-            SwitchGMapView(move.latitude, move.longitude);
+            var locations = list.Select(x => new Location(x.latitude, x.longitude)).ToList();
+            BuildMarker(overlayName, locations, markerType, toolTip);
         }
         public void CreateMarker(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Marker);
-            TryAddOverlayInGmapControlOverlays(markerOverLay);
-            markerOverLay.SetOverLay(locations, markerType, toolTip);
+            BuildMarker(overlayName, locations, markerType, toolTip);
+        }
+
+        public void ClearOverlay(string overlayName)
+        {
+            var overlay = _mapOverlayService.DeleteOverlay();
+            gMapControl.Overlays.Remove((MapOverlay)overlay);
+        }
+        public void ClearRoutes(string overlayName)
+        {
+            _mapOverlayService.DeleteRoutes(overlayName);
+        }
+        public void ClearMarkers(string overlayName)
+        {
+            _mapOverlayService.DeleteMarkers(overlayName);
+        }
+        public void RemoveRouteElement(IEnumerable<List<Latlng>> routes, string overlayName)
+        {
+            _mapOverlayService.DeleteRouteElement(routes, overlayName);
+        }
+        public void RemoveMarkerElement(List<Location> locations, string overlayName)
+        {
+            _mapOverlayService.DeleteMarkerElement(locations, overlayName);
+        }
+
+        public void HideOverlay(string overlayName = "MapOverlay")
+        {
+            var overlay = _mapOverlayService.GetOverlay(overlayName);
+            gMapControl.Overlays.Remove((MapOverlay)overlay);
+        }
+        public void ShowOverlay(string overlayName = "MapOverlay")
+        {
+            var overlay = _mapOverlayService.GetOverlay(overlayName);
+            gMapControl.Overlays.Add((MapOverlay)overlay);
+        }
+
+        private void BuildMarker(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        {
+            var iOverlay = _mapOverlayService.AddMarkers(locations, overlayName, markerType, toolTip);
+            TryAddOverlayInGmapControlOverlays(iOverlay);
             var move = locations.FirstOrDefault();
             SwitchGMapView(move.latLng.latitude, move.latLng.longitude);
         }
-
-        public void ClearMarkerOverlay()
+        private void BuildRoute(string overlayName, List<List<Latlng>> routes)
         {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Marker);
-            gMapControl.Overlays.Remove((AMapOverlay)markerOverLay);
-        }
-        public void ClearMarkerOverlay(string overlayName)
-        {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Marker);
-            gMapControl.Overlays.Remove((AMapOverlay)markerOverLay);
-        }
-        public void ClearRouteOverlay()
-        {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Route);
-            OverLays.TryGetValue(typeof(GoogleMapRouteOverlay).Name, out AMapOverlay routeOverlay);
-            if (routeOverlay != null)
-            {
-                gMapControl.Overlays.Remove(routeOverlay);
-                OverLays.Remove(typeof(GoogleMapRouteOverlay).Name);
-            }
-        }
-        public void ClearRouteOverlay(string overlayName)
-        {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Route);
-            OverLays.TryGetValue(typeof(GoogleMapRouteOverlay).Name, out AMapOverlay routeOverlay);
-            if (routeOverlay != null)
-            {
-                gMapControl.Overlays.Remove(routeOverlay);
-                OverLays.Remove(typeof(GoogleMapRouteOverlay).Name);
-            }
-        }
-        public void DeleteMarkers(List<Location> locations)
-        {
-            IOverlay markerOverLay = OverlayFactory.Create(MapOverlayType.Marker);
-            markerOverLay.DeleteOverlayElement(locations);
-        }
-        public void DeleteMarkers(string overlayName, List<Location> locations)
-        {
-            IOverlay markerOverLay = OverlayFactory.Create(overlayName, MapOverlayType.Marker);
-            markerOverLay.DeleteOverlayElement(locations);
-        }
-        public void DeleteRoutes(IEnumerable<List<Latlng>> routes)
-        {
-            IOverlay routeOverlay = OverlayFactory.Create(MapOverlayType.Route);
-            routeOverlay.DeleteOverlayElement(routes);
-        }
-        public void DeleteRoutes(string overlayName, IEnumerable<List<Latlng>> routes)
-        {
-            IOverlay routeOverlay = OverlayFactory.Create(overlayName, MapOverlayType.Route);
-            routeOverlay.DeleteOverlayElement(routes);
-        }
-        public void ClearAll()
-        {
-            ClearMarkerOverlay();
-            ClearRouteOverlay();
-        }
-        public void ClearAll(string overlayName)
-        {
-            ClearMarkerOverlay(overlayName);
-            ClearRouteOverlay(overlayName);
+            IOverlayNew iOverlay = _mapOverlayService.AddRoutes(routes, overlayName);
+            TryAddOverlayInGmapControlOverlays(iOverlay);
+            var move = routes[0].FirstOrDefault();
+            SwitchGMapView(move.latitude, move.longitude);
         }
 
         private void SwitchGMapView(double lat, double lng)
@@ -249,11 +233,11 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             gMapControl.Zoom = 13;
             gMapControl.ShowCenter = true;
         }
-        private void TryAddOverlayInGmapControlOverlays(IOverlay overlay)
+        private void TryAddOverlayInGmapControlOverlays(IOverlayNew overlay)
         {
             if (!gMapControl.Overlays.Any(x => x == overlay))
             {
-                this.gMapControl.Overlays.Add((AMapOverlay)overlay);
+                this.gMapControl.Overlays.Add((MapOverlay)overlay);
             }
         }
     }

@@ -9,6 +9,7 @@ using GoogleMap.SDK.API;
 using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
 using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 using Microsoft.Extensions.Configuration;
+using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 
 namespace GoogleMap.SDK.Core
 {
@@ -25,6 +26,8 @@ namespace GoogleMap.SDK.Core
             services.AddGoogleMapAPIRegistration();
             services.AddTransient<IAutoCompletePresenter, EmployeeAutoCompletePresenter>();
             services.AddTransient<IAutoCompletePresenter, PlaceAutoCompletePresenter>();
+            services.AddSingleton<IMapOverlayService, MapOverlayService>();
+
         }
     }
 }
