@@ -124,7 +124,7 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             gmap.Markers.Clear();
             var routes = new List<List<Latlng>>();
             routes.Add(routePoints.ToList());
-            IOverlayNew iOverlay = OverlayFactoryNew.Create("MapOverlay");
+            IOverlay iOverlay = OverlayFactoryNew.Create("MapOverlay");
             MapOverlay mapOverlay = (MapOverlay)iOverlay;
             mapOverlay.SetRouteOverLay(routes);
             foreach (var route in mapOverlay.markers)
@@ -160,7 +160,7 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             routePoints.Add(routePoint);
             AddRoutes(routePoints);
 
-            IOverlayNew iOverlay = OverlayFactoryNew.Create();
+            IOverlay iOverlay = OverlayFactoryNew.Create();
             MapOverlay mapOverlay = (MapOverlay)iOverlay;
             mapOverlay.SetRouteOverLay(routePoints);
             foreach (var route in mapOverlay.routes)
@@ -288,7 +288,7 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
         }
         private void AddMarkers(IEnumerable<Location> locations, GMarkerGoogleType markerType, object toolTip, string overlayName = "")
         {
-            IOverlayNew iOverlay = string.IsNullOrEmpty(overlayName) ?
+            IOverlay iOverlay = string.IsNullOrEmpty(overlayName) ?
                     OverlayFactoryNew.Create("MapOverlay") : OverlayFactoryNew.Create(overlayName);
             MapOverlay mapOverlay = (MapOverlay)iOverlay;
 
@@ -305,10 +305,10 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
 
         private void AddRoutes(IEnumerable<List<Latlng>> routePoints, string overlayName = "")
         {
-            IOverlayNew iOverlay = string.IsNullOrEmpty(overlayName) ?
+            IOverlay iOverlay = string.IsNullOrEmpty(overlayName) ?
                  OverlayFactoryNew.Create("MapOverlay") : OverlayFactoryNew.Create(overlayName);
 
-            IOverlayNew iOverLay = OverlayFactoryNew.Create(overlayName);
+            IOverlay iOverLay = OverlayFactoryNew.Create(overlayName);
             MapOverlay mapOverlay = (MapOverlay)iOverLay;
             mapOverlay.SetRouteOverLay(routePoints);
             foreach (var route in mapOverlay.routes)

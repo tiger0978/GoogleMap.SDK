@@ -23,7 +23,6 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
     public class GoogleMapControl : UserControl, IGMap
     {
         private GMapControl gMapControl;
-        protected static Dictionary<string, AMapOverlay> OverLays = new Dictionary<string, AMapOverlay>();
         private readonly IMapOverlayService _mapOverlayService;
 
         public Location Position
@@ -110,34 +109,17 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             MarkerEvent.Invoke(result, e);
         }
 
-        public void CreateRoute(IEnumerable<Latlng> routePoints)
-        {
-            var routes = new List<List<Latlng>>();
-            routes.Add(routePoints.ToList());
-            BuildRoute(default, routes);
-        }
-        public void CreateRoute(List<List<Latlng>> routes)
-        {
-            BuildRoute(default, routes);
-        }
-        public void CreateRoute(IEnumerable<Location> locations)
-        {
-            var routePoint = locations.Select(x => new Latlng(x.latLng.latitude, x.latLng.longitude)).ToList();
-            var routes = new List<List<Latlng>>();
-            routes.Add(routePoint);
-            BuildRoute(default, routes);
-        }
-        public void CreateRoute(string overlayName, IEnumerable<Latlng> routePoints)
+        public void CreateRoute(IEnumerable<Latlng> routePoints, string overlayName = "MapOverlay")
         {
             var routes = new List<List<Latlng>>();
             routes.Add(routePoints.ToList());
             BuildRoute(overlayName, routes);
         }
-        public void CreateRoute(string overlayName, List<List<Latlng>> routes)
+        public void CreateRoute(List<List<Latlng>> routes, string overlayName = "MapOverlay")
         {
             BuildRoute(overlayName, routes);
         }
-        public void CreateRoute(string overlayName, IEnumerable<Location> locations)
+        public void CreateRoute(IEnumerable<Location> locations, string overlayName = "MapOverlay")
         {
             var routePoint = locations.Select(x => new Latlng(x.latLng.latitude, x.latLng.longitude)).ToList();
             var routes = new List<List<Latlng>>();
@@ -145,35 +127,19 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             BuildRoute(overlayName, routes);
         }
 
-        public void CreateMarker(double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
-        {
-            var location = new Location(lat, lng);
-            var locations = new List<Location>();
-            locations.Add(location);
-            BuildMarker("MapOverlay", locations, markerType, toolTip);
-        }
-        public void CreateMarker(IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
-        {
-            var locations = list.Select(x => new Location(x.latitude, x.longitude)).ToList();
-            BuildMarker(default, locations, markerType, toolTip);
-        }
-        public void CreateMarker(IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
-        {
-            BuildMarker(default, locations, markerType, toolTip);
-        }
-        public void CreateMarker(string overlayName, double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(double lat, double lng, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
             var location = new Location(lat, lng);
             var locations = new List<Location>();
             locations.Add(location);
             BuildMarker(overlayName, locations, markerType, toolTip);
         }
-        public void CreateMarker(string overlayName, IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(IEnumerable<Latlng> list, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
             var locations = list.Select(x => new Location(x.latitude, x.longitude)).ToList();
             BuildMarker(overlayName, locations, markerType, toolTip);
         }
-        public void CreateMarker(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(IEnumerable<Location> locations, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
             BuildMarker(overlayName, locations, markerType, toolTip);
         }
@@ -220,12 +186,11 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
         }
         private void BuildRoute(string overlayName, List<List<Latlng>> routes)
         {
-            IOverlayNew iOverlay = _mapOverlayService.AddRoutes(routes, overlayName);
+            IOverlay iOverlay = _mapOverlayService.AddRoutes(routes, overlayName);
             TryAddOverlayInGmapControlOverlays(iOverlay);
             var move = routes[0].FirstOrDefault();
             SwitchGMapView(move.latitude, move.longitude);
         }
-
         private void SwitchGMapView(double lat, double lng)
         {
             gMapControl.Zoom = 12;
@@ -233,7 +198,7 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             gMapControl.Zoom = 13;
             gMapControl.ShowCenter = true;
         }
-        private void TryAddOverlayInGmapControlOverlays(IOverlayNew overlay)
+        private void TryAddOverlayInGmapControlOverlays(IOverlay overlay)
         {
             if (!gMapControl.Overlays.Any(x => x == overlay))
             {

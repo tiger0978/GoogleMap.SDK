@@ -56,7 +56,7 @@ namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
             var target = _autoCompleteView.Text;
             var place = await _context.Place.FindPlaceAsync(target, FindPlaceInputType.textquery);
             var location = place.candidates[0].geometry.location;
-            _gmapControl.CreateMarker(overlayName, location.lat, location.lng);
+            _gmapControl.CreateMarker( location.lat, location.lng, overlayName);
             //map.CreateMarker(location.lat, location.lng);
         }
         private async void GetDataInfomation(object sender, PlaceDetailResponse e)

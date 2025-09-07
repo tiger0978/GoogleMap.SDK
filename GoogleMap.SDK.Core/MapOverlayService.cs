@@ -14,19 +14,19 @@ namespace GoogleMap.SDK.Core
 {
     public class MapOverlayService : IMapOverlayService
     {
-        private static Dictionary<string, IOverlayNew> _overlays = new Dictionary<string, IOverlayNew>();
-        public IOverlayNew this[string overlayId] => _overlays[overlayId];
+        private static Dictionary<string, IOverlay> _overlays = new Dictionary<string, IOverlay>();
+        public IOverlay this[string overlayId] => _overlays[overlayId];
         IServiceProvider provider;
         public MapOverlayService(IServiceProvider provider) 
         {
             this.provider = provider;
         }
 
-        public IOverlayNew CreateOverlay(string overlayId = "MapOverlay")
+        public IOverlay CreateOverlay(string overlayId = "MapOverlay")
         {
-            if (!_overlays.TryGetValue(overlayId, out IOverlayNew mapOverlay))
+            if (!_overlays.TryGetValue(overlayId, out IOverlay mapOverlay))
             {
-                IOverlayNew overlayNew = provider.GetService<IOverlayNew>();
+                IOverlay overlayNew = provider.GetService<IOverlay>();
                 overlayNew.Id = overlayId;
                 mapOverlay = overlayNew;
                 _overlays[overlayId] = mapOverlay;
@@ -34,54 +34,54 @@ namespace GoogleMap.SDK.Core
             return mapOverlay;
 
         }
-        public IOverlayNew AddMarkers(IEnumerable<Location> locations, string overlayId, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public IOverlay AddMarkers(IEnumerable<Location> locations, string overlayId, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
         {
-            IOverlayNew iOverLay = CreateOverlay(overlayId);
+            IOverlay iOverLay = CreateOverlay(overlayId);
             iOverLay.SetMarkerOverLay(locations, markerType, toolTip);
             return iOverLay;
         }
 
-        public IOverlayNew AddRoutes(IEnumerable<List<Latlng>> routes, string overlayId)
+        public IOverlay AddRoutes(IEnumerable<List<Latlng>> routes, string overlayId)
         {
-            IOverlayNew iOverlay = CreateOverlay(overlayId);
+            IOverlay iOverlay = CreateOverlay(overlayId);
             iOverlay.SetRouteOverLay(routes);
             return iOverlay;
         }
 
         public void DeleteMarkers(string overlayId)
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             overlay.ClearMarkers();
         }
 
         public void DeleteRoutes(string overlayId)
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             overlay.ClearRoutes();
         }
 
-        public IOverlayNew DeleteOverlay(string overlayId = "MapOverlay")
+        public IOverlay DeleteOverlay(string overlayId = "MapOverlay")
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             overlay.ClearAll();
             return overlay;
         }
 
         public void DeleteMarkerElement(object element, string overlayId = "MapOverlay")
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             overlay.DeleteMarkerElement(element);
         }
 
         public void DeleteRouteElement(object element, string overlayId = "MapOverlay")
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             overlay.DeleteRouteElement(element);
         }
 
-        public IOverlayNew GetOverlay(string overlayId = "MapOverlay")
+        public IOverlay GetOverlay(string overlayId = "MapOverlay")
         {
-            IOverlayNew overlay = _overlays[overlayId];
+            IOverlay overlay = _overlays[overlayId];
             return overlay;
         }
     }

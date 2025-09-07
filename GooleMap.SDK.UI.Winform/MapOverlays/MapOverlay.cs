@@ -17,9 +17,9 @@ using System.Drawing;
 
 namespace GooleMap.SDK.UI.Winform.MapOverlays
 {
-    public class MapOverlay : GMapOverlay, IOverlayNew
+    public class MapOverlay : GMapOverlay, IOverlay
     {
-        string IOverlayNew.Id 
+        string IOverlay.Id 
         {
             get => this.Id;
             set => this.Id = value;

@@ -110,7 +110,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GoogleMapWinformMapRegistration.cs" />
-    <Compile Include="MapOverlays\AMapOverlay.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,8 +119,6 @@
     <Compile Include="Components\GoogleMap\GoogleMapControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MapOverlays\GoogleMapMarkerOverlay.cs" />
-    <Compile Include="MapOverlays\GoogleMapRouteOverlay.cs" />
     <Compile Include="MapOverlays\MapOverlay.cs" />
     <Compile Include="Models\GMarker.cs" />
     <Compile Include="Program.cs" />

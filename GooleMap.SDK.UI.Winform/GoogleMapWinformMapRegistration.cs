@@ -22,7 +22,7 @@ namespace GooleMap.SDK.UI.Winform
             services.AddTransient<IAutoCompleteView, PlaceAutoCompleteView>();
             services.AddTransient<IAutoCompleteView, EmployeeAutoCompleteView>();
             services.AddTransient<IGMap, GoogleMapControl>();
-            services.AddTransient<IOverlayNew,MapOverlay>();
+            services.AddTransient<IOverlay,MapOverlay>();
         }
     }
 }

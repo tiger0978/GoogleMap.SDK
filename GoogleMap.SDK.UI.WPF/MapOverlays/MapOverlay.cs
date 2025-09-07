@@ -20,7 +20,7 @@ using Path = System.Windows.Shapes.Path;
 
 namespace GoogleMap.SDK.UI.WPF.MapOverlays
 {
-    public class MapOverlay : GMapMarker, IOverlayNew
+    public class MapOverlay : GMapMarker, IOverlay
     {
         public List<GMapMarker> markers = new List<GMapMarker>();
         public List<GMapMarker> routes = new List<GMapMarker>();

@@ -11,14 +11,14 @@ namespace GoogleMap.SDK.Core
 {
     public class OverlayFactoryNew
     {
-        private static Dictionary<string, IOverlayNew> _overlays = new Dictionary<string, IOverlayNew>();
-        public static IOverlayNew Create()
+        private static Dictionary<string, IOverlay> _overlays = new Dictionary<string, IOverlay>();
+        public static IOverlay Create()
         {
             return Create("MapOverlay");
         }
-        public static IOverlayNew Create(string overlayId)
+        public static IOverlay Create(string overlayId)
         {
-            if (_overlays.TryGetValue(overlayId, out IOverlayNew mapOverlay))
+            if (_overlays.TryGetValue(overlayId, out IOverlay mapOverlay))
             {
                 return mapOverlay;
             }
@@ -29,7 +29,7 @@ namespace GoogleMap.SDK.Core
             {
                 throw new InvalidOperationException($"找不到符合的型別。");
             }
-            var instance = (IOverlayNew)Activator.CreateInstance(overlayType, [overlayId]);
+            var instance = (IOverlay)Activator.CreateInstance(overlayType, [overlayId]);
             _overlays.Add(overlayId, instance);
             return instance;
         }

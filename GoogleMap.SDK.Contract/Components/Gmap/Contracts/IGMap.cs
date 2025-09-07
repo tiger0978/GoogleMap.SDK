@@ -15,19 +15,12 @@ namespace GooleMap.SDK.Contract
         Location Position { get; set; }
         double Zoom { get; set; }
 
-        void CreateRoute(IEnumerable<Latlng> points);
-        void CreateRoute(List<List<Latlng>> routePoints);
-        void CreateRoute(IEnumerable<Location> locations);
-        void CreateMarker(double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
-        void CreateMarker(IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
-        void CreateMarker(IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
-
-        void CreateRoute(string overlayName, IEnumerable<Latlng> points);
-        void CreateRoute(string overlayName, List<List<Latlng>> routePoints);
-        void CreateRoute(string overlayName, IEnumerable<Location> locations);
-        void CreateMarker(string overlayName, double lat, double lng, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
-        void CreateMarker(string overlayName, IEnumerable<Latlng> list, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
-        void CreateMarker(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+        void CreateRoute(IEnumerable<Latlng> points, string overlayName = "MapOverlay");
+        void CreateRoute(List<List<Latlng>> routePoints, string overlayName = "MapOverlay");
+        void CreateRoute(IEnumerable<Location> locations, string overlayName = "MapOverlay");
+        void CreateMarker(double lat, double lng, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+        void CreateMarker(IEnumerable<Latlng> list, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+        void CreateMarker(IEnumerable<Location> locations, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
 
         void ClearOverlay(string overlayName = "MapOverlay");
         void ClearRoutes(string overlayName = "MapOverlay");

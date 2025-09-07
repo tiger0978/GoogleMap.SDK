@@ -84,7 +84,6 @@
     <Compile Include="Components\Gmap\Contracts\IGMap.cs" />
     <Compile Include="Components\Gmap\Contracts\IMapOverlayService.cs" />
     <Compile Include="Components\Gmap\Contracts\IOverlay.cs" />
-    <Compile Include="Components\Gmap\Contracts\IOverlayNew.cs" />
     <Compile Include="GoogleAPI\IGoogleAPIContext.cs" />
     <Compile Include="GoogleAPI\Models\Direction\Request\DirectionNewRequest.cs" />
     <Compile Include="GoogleAPI\Models\Direction\Request\DirectionRequest.cs" />
