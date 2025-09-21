@@ -17,22 +17,21 @@ using GoogleMap.SDK.Contract.Utility;
 using System.Windows.Shapes;
 using System.IO;
 using Path = System.Windows.Shapes.Path;
+using System.Windows.Navigation;
+using System.Collections.ObjectModel;
 
 namespace GoogleMap.SDK.UI.WPF.MapOverlays
 {
-    public class MapOverlay : GMapMarker, IOverlay
+    public class MapOverlay : IOverlay
     {
-        public List<GMapMarker> markers = new List<GMapMarker>();
-        public List<GMapMarker> routes = new List<GMapMarker>();
-        public string overLayId;
-        public MapOverlay(string overLayId) : base(default)
+        public ObservableCollection<GMapMarker> markers = new ObservableCollection<GMapMarker>();
+        public ObservableCollection<GMapMarker> routes = new ObservableCollection<GMapMarker>();
+        private string overLayId;
+
+        public string Id 
         {
-            this.overLayId = overLayId;
-        }
-        public void ClearAll()
-        {
-            this.markers.Clear();
-            this.routes.Clear();
+            get => overLayId;
+            set => overLayId = value;
         }
 
         public void SetMarkerOverLay(IEnumerable<Location> locations, GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
@@ -51,7 +50,6 @@ namespace GoogleMap.SDK.UI.WPF.MapOverlays
                 markers.Add(marker);
             }
         }
-
         public void SetRouteOverLay(IEnumerable<List<Latlng>> routes)
         {
             foreach (var routePoint in routes)
@@ -73,21 +71,46 @@ namespace GoogleMap.SDK.UI.WPF.MapOverlays
                 this.routes.Add(polygon);
             }
         }
-
-        private ImageSource ToImageSource(byte[] bytes)
+        public void DeleteRouteElement(object element)
         {
-            if (bytes == null || bytes.Length == 0)
-                return null;
-
-            using (var stream = new MemoryStream(bytes))
+            if (element is IEnumerable<List<Latlng>> routes)
             {
-                return BitmapFrame.Create(
-                    stream,
-                    BitmapCreateOptions.None,
-                    BitmapCacheOption.OnLoad
-                );
+                foreach (var route in routes)
+                {
+                    var routeName = PolylineEncoder.EncodeCoordinates(route);
+                    var existedRoute = this.routes.FirstOrDefault(x => x.Tag.ToString() == routeName);
+                    this.routes.Remove(existedRoute);
+                }
             }
         }
+        public void DeleteMarkerElement(object element)
+        {
+            if (element is List<Location> locations)
+            {
+                foreach (var location in locations)
+                {
+                    var marker = markers.FirstOrDefault(x => x.Position == new PointLatLng(location.latLng.latitude, location.latLng.longitude));
+                    if (marker != null)
+                    {
+                        markers.Remove(marker);
+                    }
+                }
+            }
+        }
+        public void ClearMarkers()
+        {
+            markers.Clear();
+        }
+        public void ClearRoutes()
+        {
+            routes.Clear();
+        }
+        public void ClearAll()
+        {
+            this.markers.Clear();
+            this.routes.Clear();
+        }
+
         private Image InitialToolTip(ToolTip tooltip, GMapMarker marker, GMarkerGoogleType markerType)
         {
             string imgPath = System.IO.Path.Combine("Resources", markerType.ToString() + ".png");
@@ -104,6 +127,20 @@ namespace GoogleMap.SDK.UI.WPF.MapOverlays
             
             image.MouseLeftButtonDown += Marker_Click;
             return image;
+        }
+        private ImageSource ToImageSource(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+                return null;
+
+            using (var stream = new MemoryStream(bytes))
+            {
+                return BitmapFrame.Create(
+                    stream,
+                    BitmapCreateOptions.None,
+                    BitmapCacheOption.OnLoad
+                );
+            }
         }
         private void Marker_Click(object sender, MouseButtonEventArgs e)
         {

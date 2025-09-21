@@ -107,18 +107,12 @@ namespace GoogleMap.SDK.UI.WPF.Test
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (_placeDetailInfo != null)
-            {
-                AddMarker(_placeDetailInfo);
-            }
-            if (_endPlaceDetailInfo != null)
-            {
-                AddMarker(_endPlaceDetailInfo);
-            }
-
+        { 
             var location = new Location(_placeDetailInfo.result.geometry.location.lat, _placeDetailInfo.result.geometry.location.lng);
+
             var end = new Location(_endPlaceDetailInfo.result.geometry.location.lat, _endPlaceDetailInfo.result.geometry.location.lng);
+            _gmap.CreateMarker(location,"Test");
+            _gmap.CreateMarker(end);
 
             var route = _context.Direction.GetDirectionAsync(location, end, TrafficMode.TRANSIT, new List<Avoid>());
             _gmap.CreateRoute(route.Result.routes[0].polyline.encodedPolyline);
@@ -126,19 +120,16 @@ namespace GoogleMap.SDK.UI.WPF.Test
 
         private void AddMarker(PlaceDetailResponse placeInfo)
         {
-            var mapInfoToolTip = (Style)this.FindResource("MapInfoToolTipStyle");
-            data = new MapInfoToolTipData()
-            {
-                Title = placeInfo.result.name,
-                Address = placeInfo.result.formatted_address
-                //OpeningTime = placeInfo.result.current_opening_hours
-            };
-            ToolTip tooltip = new ToolTip
-            {
-                Style = mapInfoToolTip,
-                DataContext = data
-            };
-            _gmap.CreateMarker(placeInfo.result.geometry.location.lat, placeInfo.result.geometry.location.lng, GMarkerGoogleType.red_dot, tooltip);
+
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            var location = new Location(_placeDetailInfo.result.geometry.location.lat, _placeDetailInfo.result.geometry.location.lng);
+            List<Location> locations = new List<Location>();
+            locations.Add(location);
+            _gmap.RemoveMarkerElement(locations, "Test");
+
         }
     }
 }

@@ -10,6 +10,7 @@
     <StackPanel Orientation="Horizontal">
         <StackPanel Orientation="Vertical" Name="autoCompleteContainer" Width="300">
             <Button HorizontalAlignment="Right" Content="Clicked" Click="Button_Click" Height="25" Width="50"></Button>
+            <Button HorizontalAlignment="Right" Content="Clicked"  Height="25" Width="50" Click="Delete_Click"></Button>
         </StackPanel>
         <StackPanel x:Name="mapContainer" Width="500">
         </StackPanel>

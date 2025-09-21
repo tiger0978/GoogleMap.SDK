@@ -148,10 +148,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleMap.SDK.API\GoogleMap.SDK.API.csproj">
-      <Project>{48348620-f3fe-40a6-af2e-78be8f477bba}</Project>
-      <Name>GoogleMap.SDK.API</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GoogleMap.SDK.Contract\GoogleMap.SDK.Contract.csproj">
       <Project>{a79cf272-9ee2-46e7-a667-1f972f662df2}</Project>
       <Name>GoogleMap.SDK.Contract</Name>

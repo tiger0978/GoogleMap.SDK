@@ -143,10 +143,16 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
         {
             BuildMarker(overlayName, locations, markerType, toolTip);
         }
+        public void CreateMarker(Location location, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        {
+            List<Location> locations = new List<Location>();
+            locations.Add(location);
+            BuildMarker(overlayName, locations, markerType, toolTip);
+        }
 
         public void ClearOverlay(string overlayName)
         {
-            var overlay = _mapOverlayService.DeleteOverlay();
+            var overlay = _mapOverlayService.DeleteOverlay(overlayName);
             gMapControl.Overlays.Remove((MapOverlay)overlay);
         }
         public void ClearRoutes(string overlayName)
@@ -165,7 +171,6 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
         {
             _mapOverlayService.DeleteMarkerElement(locations, overlayName);
         }
-
         public void HideOverlay(string overlayName = "MapOverlay")
         {
             var overlay = _mapOverlayService.GetOverlay(overlayName);
@@ -198,7 +203,7 @@ namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
             gMapControl.Zoom = 13;
             gMapControl.ShowCenter = true;
         }
-        private void TryAddOverlayInGmapControlOverlays(IOverlay overlay)
+        public void TryAddOverlayInGmapControlOverlays(IOverlay overlay)
         {
             if (!gMapControl.Overlays.Any(x => x == overlay))
             {

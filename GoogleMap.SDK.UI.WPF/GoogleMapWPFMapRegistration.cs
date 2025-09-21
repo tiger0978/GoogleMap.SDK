@@ -1,4 +1,6 @@
-﻿using GoogleMap.SDK.UI.WPF.Components.GoogleMap;
+﻿using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
+using GoogleMap.SDK.UI.WPF.Components.GoogleMap;
+using GoogleMap.SDK.UI.WPF.MapOverlays;
 using GooleMap.SDK.Contract;
 using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
 using GooleMap.SDK.UI.WPF.Components.AutoComplete.Views;
@@ -20,6 +22,7 @@ namespace GooleMap.SDK.UI.WPF
             services.AddTransient<IAutoCompleteView, PlaceAutoCompleteView>();
             services.AddTransient<IAutoCompleteView, EmployeeAutoCompleteView>();
             services.AddTransient<IGMap, GoogleMapControl>();
+            services.AddTransient<IOverlay, MapOverlay>();
         }
     }
 }

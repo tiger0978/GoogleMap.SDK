@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMap.SDK.Contract.Commons.Enums;
+using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 using GoogleMap.SDK.Contracts.Commons.Models;
 
 namespace GooleMap.SDK.Contract
@@ -21,6 +22,8 @@ namespace GooleMap.SDK.Contract
         void CreateMarker(double lat, double lng, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
         void CreateMarker(IEnumerable<Latlng> list, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
         void CreateMarker(IEnumerable<Location> locations, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+        void CreateMarker(Location location, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+
 
         void ClearOverlay(string overlayName = "MapOverlay");
         void ClearRoutes(string overlayName = "MapOverlay");
@@ -30,5 +33,6 @@ namespace GooleMap.SDK.Contract
 
         void HideOverlay(string overlayName = "MapOverlay");
         void ShowOverlay(string overlayName = "MapOverlay");
+        void TryAddOverlayInGmapControlOverlays(IOverlay overlay);
     }
 }
