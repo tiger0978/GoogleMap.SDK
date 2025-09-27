@@ -5,6 +5,8 @@
               GoogleMap.SDK.Contract
               GoogleMap.SDK.API
               AutoMapper
+			  Microsoft.Extensions.*
+			  System.*
         </IncludeAssemblies>
 	</Costura>
 </Weavers>

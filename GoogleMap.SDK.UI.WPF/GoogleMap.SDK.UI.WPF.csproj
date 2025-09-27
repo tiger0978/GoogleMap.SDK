@@ -134,10 +134,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="Components\GoogleMap\GoogleMapControl.xaml.cs">
       <DependentUpon>GoogleMapControl.xaml</DependentUpon>
     </Compile>
@@ -150,10 +146,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Components\AutoComplete\Views\BaseWPFAutoCompleteView.cs">
       <SubType>Component</SubType>
     </Compile>
