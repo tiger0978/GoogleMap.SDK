@@ -1,5 +1,5 @@
-﻿using GooleMap.SDK.Contracts.Components.AutoComplete.Models;
-using GooleMap.SDK.Core.Utility.Extensions;
+﻿using GoogleMap.SDK.Contracts.Components.AutoComplete.Models;
+using GoogleMap.SDK.Core.Utility.Extensions;
 using IoC_Container;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 
-namespace GooleMap.SDK.UI.WPF.Components.AutoComplete.Views
+namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
 {
     public abstract class BaseWPFAutoCompleteView<T> : TextBox, IAutoCompleteView
     {

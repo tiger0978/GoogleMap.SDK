@@ -5,10 +5,10 @@ using GoogleMap.SDK.Contract.Commons.Enums;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 using GoogleMap.SDK.Contracts.Commons.Models;
 using GoogleMap.SDK.Core;
-using GooleMap.SDK.Contract;
-using GooleMap.SDK.Core;
-using GooleMap.SDK.UI.Winform.MapOverlays;
-using GooleMap.SDK.UI.Winform.Models;
+using GoogleMap.SDK.Contract;
+using GoogleMap.SDK.Core;
+using GoogleMap.SDK.UI.Winform.MapOverlays;
+using GoogleMap.SDK.UI.Winform.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
+namespace GoogleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap
 {
     public class GoogleMapControl : UserControl, IGMap
     {

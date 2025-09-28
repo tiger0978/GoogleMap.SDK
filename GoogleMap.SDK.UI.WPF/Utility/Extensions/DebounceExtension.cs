@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using Timer = System.Threading.Timer;
 
 
-namespace GooleMap.SDK.Core.Utility.Extensions
+namespace GoogleMap.SDK.Core.Utility.Extensions
 {
     public static class DebounceExtension
     {

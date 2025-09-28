@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
-namespace GooleMap.SDK.UI.Winform.Utility.Extentsions 
+namespace GoogleMap.SDK.UI.Winform.Utility.Extentsions 
 { 
     public static class DebounceExtension
     {

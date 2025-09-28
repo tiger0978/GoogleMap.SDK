@@ -9,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using GooleMap.SDK.UI.Winform;
-using GooleMap.SDK.UI.Winform.Components.AutoComplete.Views;
-using GooleMap.SDK.Contracts.Components.AutoComplete.Models;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using GoogleMap.SDK.UI.Winform;
+using GoogleMap.SDK.UI.Winform.Components.AutoComplete.Views;
+using GoogleMap.SDK.Contracts.Components.AutoComplete.Models;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 using GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response;
 using GoogleMap.SDK.Contracts.Commons.Models;
 using GoogleMap.SDK.Contracts.Commons.Enums;
 using GoogleMap.SDK.Contracts.GoogleAPI;
-using GooleMap.SDK.Contract;
+using GoogleMap.SDK.Contract;
 using GoogleMap.SDK.Contracts.GoogleAPI.Models.PlaceDetail.Response;
 namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
 {

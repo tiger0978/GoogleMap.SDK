@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GooleMap.SDK.UI.Winform
+namespace GoogleMap.SDK.UI.Winform
 {
     internal static class Program
     {

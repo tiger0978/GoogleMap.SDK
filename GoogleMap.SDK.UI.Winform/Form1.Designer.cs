@@ -1,4 +1,4 @@
-﻿namespace GooleMap.SDK.UI.Winform
+﻿namespace GoogleMap.SDK.UI.Winform
 {
     partial class Form1
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GooleMap.SDK.Contracts.Components.AutoComplete.Models
+namespace GoogleMap.SDK.Contracts.Components.AutoComplete.Models
 {
     public class AutoCompleteModel
     {

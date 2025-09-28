@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMap.SDK.API;
-using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using GoogleMap.SDK.Core.Components.AutoComplete.Presenters;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 using Microsoft.Extensions.Configuration;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 

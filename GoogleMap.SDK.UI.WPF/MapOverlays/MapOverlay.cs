@@ -19,6 +19,7 @@ using System.IO;
 using Path = System.Windows.Shapes.Path;
 using System.Windows.Navigation;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace GoogleMap.SDK.UI.WPF.MapOverlays
 {
@@ -113,18 +114,41 @@ namespace GoogleMap.SDK.UI.WPF.MapOverlays
 
         private Image InitialToolTip(ToolTip tooltip, GMapMarker marker, GMarkerGoogleType markerType)
         {
-            string imgPath = System.IO.Path.Combine("Resources", markerType.ToString() + ".png");
-            byte[] bytes = File.ReadAllBytes(imgPath);
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"GoogleMap.SDK.UI.WPF.Resources.{markerType}.png";
+            //Stream stream = assembly.GetManifestResourceStream(resourceName);
+            ////var uri = new Uri($"pack://application:,,,/GoogleMap.SDK.UI.WPF;component/Resources/{markerType}.png", UriKind.Absolute);
+            //var img = new BitmapImage();
+            //img.BeginInit();
+            //img.CacheOption = BitmapCacheOption.OnLoad;
+            //img.StreamSource = stream;
+            //img.EndInit();
+
+            using Stream stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null)
+                throw new FileNotFoundException($"找不到內嵌資源: {resourceName}");
+
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;   // ← 很重要：確保在 EndInit 後可以關閉 stream
+            bitmap.StreamSource = stream;                    // ← 必須在 EndInit 之前設定
+            bitmap.EndInit();
+            bitmap.Freeze();
+
+
+
+            //string imgPath = System.IO.Path.Combine("Resources", markerType.ToString() + ".png");
+            //byte[] bytes = File.ReadAllBytes(imgPath);
+
             var image = new Image
             {
-                Source = ToImageSource(bytes),
+                Source = bitmap,
                 Width = 32,
                 Height = 32,
                 Cursor = Cursors.Hand,
                 ToolTip = tooltip,
                 Tag = marker
             };
-            
             image.MouseLeftButtonDown += Marker_Click;
             return image;
         }

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GooleMap.SDK.UI.Winform
+namespace GoogleMap.SDK.UI.Winform
 {
     public partial class Form1 : Form
     {

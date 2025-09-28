@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GooleMap.SDK.UI.Winform.Properties
+namespace GoogleMap.SDK.UI.Winform.Properties
 {
 
 

@@ -15,7 +15,7 @@ using GoogleMap.SDK.Contract.Utility;
 using System.Drawing;
 
 
-namespace GooleMap.SDK.UI.Winform.MapOverlays
+namespace GoogleMap.SDK.UI.Winform.MapOverlays
 {
     public class MapOverlay : GMapOverlay, IOverlay
     {

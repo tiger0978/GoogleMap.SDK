@@ -1,5 +1,5 @@
-﻿using GooleMap.SDK.Contracts.Components.AutoComplete.Models;
-using GooleMap.SDK.UI.Winform.Utility.Extentsions;
+﻿using GoogleMap.SDK.Contracts.Components.AutoComplete.Models;
+using GoogleMap.SDK.UI.Winform.Utility.Extentsions;
 using IoC_Container;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 
-namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.Views
+namespace GoogleMap.SDK.UI.Winform.Components.AutoComplete.Views
 {
     // typeof(IAutoCompleteView<>),PlaceAutoCompleteView
     public abstract class BaseWinformAutoCompleteView<T> : TextBox, IAutoCompleteView

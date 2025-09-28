@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMap.SDK.API", "GoogleMap.SDK.API\GoogleMap.SDK.API.csproj", "{48348620-F3FE-40A6-AF2E-78BE8F477BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooleMap.SDK.UI.Winform", "GooleMap.SDK.UI.Winform\GooleMap.SDK.UI.Winform.csproj", "{29F66334-1FB0-4A35-A095-7B238728453E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMap.SDK.UI.Winform", "GoogleMap.SDK.UI.Winform\GoogleMap.SDK.UI.Winform.csproj", "{29F66334-1FB0-4A35-A095-7B238728453E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMap.SDK.UI.Winform.Test(.net framework)", "GoogleMap.SDK.UI.Winform.Test(.net framework)\GoogleMap.SDK.UI.Winform.Test(.net framework).csproj", "{4ACE6F88-EDD8-453E-ABE6-27312CA6F5CC}"
 EndProject

@@ -1,9 +1,9 @@
 ﻿using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
-using GooleMap.SDK.Contract;
-using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
-using GooleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap;
-using GooleMap.SDK.UI.Winform.Components.AutoComplete.Views;
-using GooleMap.SDK.UI.Winform.MapOverlays;
+using GoogleMap.SDK.Contract;
+using GoogleMap.SDK.Core.Components.AutoComplete.Presenters;
+using GoogleMap.SDK.UI.Winform.Components.AutoComplete.GoogleMap;
+using GoogleMap.SDK.UI.Winform.Components.AutoComplete.Views;
+using GoogleMap.SDK.UI.Winform.MapOverlays;
 using IoC_Container;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 
-namespace GooleMap.SDK.UI.Winform
+namespace GoogleMap.SDK.UI.Winform
 {
     public static class GoogleMapWinformMapRegistration
     {

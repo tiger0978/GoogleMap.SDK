@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GooleMap.SDK.UI.Winform.Properties
+namespace GoogleMap.SDK.UI.Winform.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace GooleMap.SDK.UI.Winform.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GooleMap.SDK.UI.Winform.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GoogleMap.SDK.UI.Winform.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

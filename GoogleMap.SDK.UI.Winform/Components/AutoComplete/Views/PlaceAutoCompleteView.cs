@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel;
 using GoogleMap.SDK.Contracts.GoogleAPI.Models.PlaceDetail.Response;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
-using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using GoogleMap.SDK.Core.Components.AutoComplete.Presenters;
 
-namespace GooleMap.SDK.UI.Winform.Components.AutoComplete.Views
+namespace GoogleMap.SDK.UI.Winform.Components.AutoComplete.Views
 {
     public class PlaceAutoCompleteView : BaseWinformAutoCompleteView<PlaceDetailResponse>
     {

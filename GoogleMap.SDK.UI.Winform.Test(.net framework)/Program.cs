@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GooleMap.SDK.UI.Winform.Components.AutoComplete.Views;
+using GoogleMap.SDK.UI.Winform.Components.AutoComplete.Views;
 using Microsoft.Extensions.DependencyInjection;
 using GoogleMap.SDK.Core;
 using GoogleMap.SDK.Contracts.GoogleAPI;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 using GoogleMap.SDK.API;
-using GooleMap.SDK.Core.Components.AutoComplete.Presenters;
-using GooleMap.SDK.UI.Winform;
+using GoogleMap.SDK.Core.Components.AutoComplete.Presenters;
+using GoogleMap.SDK.UI.Winform;
 
 
 namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_

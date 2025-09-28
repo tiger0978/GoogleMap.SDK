@@ -1,12 +1,12 @@
-﻿using GooleMap.SDK.Contracts.Components.AutoComplete.Models;
+﻿using GoogleMap.SDK.Contracts.Components.AutoComplete.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static GooleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 
-namespace GooleMap.SDK.Core.Components.AutoComplete.Presenters
+namespace GoogleMap.SDK.Core.Components.AutoComplete.Presenters
 {
     public class EmployeeAutoCompletePresenter : IAutoCompletePresenter
     {

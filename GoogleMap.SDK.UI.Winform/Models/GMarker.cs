@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GooleMap.SDK.UI.Winform.Models
+namespace GoogleMap.SDK.UI.Winform.Models
 {
     public class GMarker
     {

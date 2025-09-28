@@ -8,7 +8,7 @@ using GoogleMap.SDK.Contract.Commons.Enums;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
 using GoogleMap.SDK.Contracts.Commons.Models;
 
-namespace GooleMap.SDK.Contract
+namespace GoogleMap.SDK.Contract
 {
     public interface IGMap
     {

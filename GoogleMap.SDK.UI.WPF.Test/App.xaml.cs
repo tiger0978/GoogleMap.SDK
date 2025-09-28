@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using GoogleMap.SDK.Core;
 using GoogleMap.SDK.UI.WPF;
-using GooleMap.SDK.UI.WPF;
+using GoogleMap.SDK.UI.WPF;
 
 
 
