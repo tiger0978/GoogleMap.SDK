@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -55,13 +56,11 @@ namespace GoogleMap.SDK.API.Services.Place
             return response;
         }
 
-        public async Task<Bitmap> PlacePhotoAsync(string photo_reference, int maxheight)
+        public async Task<Byte[]> PlacePhotoAsync(string photo_reference, int maxheight)
         {
             var placePhotoRequest = new PlacePhotoRequest(photo_reference, maxheight);
-            var response = await GetAsync<Bitmap>(placePhotoRequest.URL);
-            return response;
+            var imageByte = await GetByteAsync<Bitmap>(placePhotoRequest.URL);
+            return imageByte;
         }
-
-
     }
 }

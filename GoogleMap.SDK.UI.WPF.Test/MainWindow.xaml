@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GoogleMap.SDK.UI.WPF.Test" xmlns:WindowsPresentation="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+        xmlns:local="clr-namespace:GoogleMap.SDK.UI.WPF.Test" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -11,8 +11,10 @@
         <StackPanel Orientation="Vertical" Name="autoCompleteContainer" Width="300">
             <Button HorizontalAlignment="Right" Content="Clicked" Click="Button_Click" Height="25" Width="50"></Button>
             <Button HorizontalAlignment="Right" Content="Clicked"  Height="25" Width="50" Click="Delete_Click"></Button>
+            <Button HorizontalAlignment="Right" Content="Clicked"  Height="25" Width="50" Click="Test_Click"></Button>
         </StackPanel>
-        <StackPanel x:Name="mapContainer" Width="500">
-        </StackPanel>
+        <Grid x:Name="mapContainer" Width="500"></Grid>
+        <!--<StackPanel x:Name="mapContainer" Width="500">
+        </StackPanel>-->
     </StackPanel>
 </Window>

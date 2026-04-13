@@ -68,7 +68,7 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Request
         public Intermediate[] intermediates { get; set; }
         public string travelMode { get; set; }
         public string routingPreference { get; set; }
-        public bool computeAlternativeRoutes { get; set; }
+        public bool computeAlternativeRoutes { get; set; } = true;
         public Routemodifiers routeModifiers { get; set; } = new Routemodifiers();
         public string languageCode { get; set; }
         public string units { get; set; }

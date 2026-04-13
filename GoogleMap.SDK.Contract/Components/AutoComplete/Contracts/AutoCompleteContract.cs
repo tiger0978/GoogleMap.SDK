@@ -23,6 +23,7 @@ namespace GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts
             void SendQuery(object itemValue);
             void KeyUp(object sender, EventArgs e);
             void KeyDown(object sender, ConsoleKey e);
+            void SwitchMode();
 
 
         }

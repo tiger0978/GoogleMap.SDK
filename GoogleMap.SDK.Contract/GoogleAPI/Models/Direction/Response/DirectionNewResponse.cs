@@ -21,6 +21,7 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response
         {
             public Leg[] legs { get; set; }
             public int distanceMeters { get; set; }
+            public string description { get; set; }
             public string duration { get; set; }
             public string staticDuration { get; set; }
             public Polyline polyline { get; set; }
@@ -127,6 +128,107 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Direction.Response
             public string maneuver { get; set; }
             public string instructions { get; set; }
         }
+
+
+        //public class Rootobject
+        //{
+        //    public Route[] routes { get; set; }
+        //}
+
+        //public class Route
+        //{
+        //    public Leg[] legs { get; set; }
+        //    public int distanceMeters { get; set; }
+        //    public string duration { get; set; }
+        //    public Polyline polyline { get; set; }
+        //    public string description { get; set; }
+        //    public Localizedvalues localizedValues { get; set; }
+        //}
+
+        //public class Polyline
+        //{
+        //    public IEnumerable<Latlng> encodedPolyline { get; set; }
+        //}
+
+        //public class Localizedvalues
+        //{
+        //    public Distance distance { get; set; }
+        //    public Duration duration { get; set; }
+        //    public Staticduration staticDuration { get; set; }
+        //}
+
+        //public class Distance
+        //{
+        //    public string text { get; set; }
+        //}
+
+        //public class Duration
+        //{
+        //    public string text { get; set; }
+        //}
+
+        //public class Staticduration
+        //{
+        //    public string text { get; set; }
+        //}
+
+        //public class Leg
+        //{
+        //    public Step[] steps { get; set; }
+        //}
+
+        //public class Step
+        //{
+        //    public int distanceMeters { get; set; }
+        //    public string staticDuration { get; set; }
+        //    public Polyline1 polyline { get; set; }
+        //    public Startlocation startLocation { get; set; }
+        //    public Endlocation endLocation { get; set; }
+        //    public Navigationinstruction navigationInstruction { get; set; }
+        //    public Localizedvalues1 localizedValues { get; set; }
+        //    public string travelMode { get; set; }
+        //}
+
+        //public class Polyline1
+        //{
+        //    public string encodedPolyline { get; set; }
+        //}
+
+        //public class Startlocation
+        //{
+        //    public Latlng latLng { get; set; }
+        //}
+
+
+        //public class Endlocation
+        //{
+        //    public Latlng latLng { get; set; }
+        //}
+
+
+
+        //public class Navigationinstruction
+        //{
+        //    public string maneuver { get; set; }
+        //    public string instructions { get; set; }
+        //}
+
+        //public class Localizedvalues1
+        //{
+        //    public Distance1 distance { get; set; }
+        //    public Staticduration1 staticDuration { get; set; }
+        //}
+
+        //public class Distance1
+        //{
+        //    public string text { get; set; }
+        //}
+
+        //public class Staticduration1
+        //{
+        //    public string text { get; set; }
+        //}
+
 
     }
 }

@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
+using System.Windows.Media;
 using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
 
 namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
@@ -17,11 +19,12 @@ namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
         public List<AutoCompleteModel> values { get => _values; set => _values = value; }
         public EventHandler<T> SelectedItem;
         private ListBox _listBox;
-        private bool _isAdded;
+        //private bool _isAdded;
         private List<AutoCompleteModel> _values;
         private String _formerValue = String.Empty;
         protected IAutoCompletePresenter _presenter;
         private Popup _popup;
+        private bool isDarkMode = false;
 
         public BaseWPFAutoCompleteView(IPresenterFactory presenterFactory)
         {
@@ -47,11 +50,30 @@ namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
             };
         }
 
+        public void SwitchMode()
+        {
+            if (!isDarkMode)
+            {
+                isDarkMode = true;
+                _listBox.Style = CreateListBoxStyle();
+                _listBox.ItemContainerStyle = CreateListBoxItemStyle();
+            }
+            else
+            {
+                isDarkMode = false;
+                _listBox.Style = null;
+                _listBox.ItemContainerStyle = null;
+            }
+
+        }
+
+
         private void this_KeyDown(object sender, KeyEventArgs e)
         {
             ((IAutoCompleteView)this).KeyDown(sender, (ConsoleKey)e.Key);
         }
 
+      
         public void NotifySelectedItemResponse(object data)
         {
             SelectedItem?.Invoke(this, (T)data);
@@ -131,11 +153,13 @@ namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
         }
         private void ShowListBox()
         {
-            if (!_isAdded)
-            {
-                _isAdded = true;
-                _popup.IsOpen = true;
-            }
+            //if (!_isAdded)
+            //{
+            //    _isAdded = true;
+            //    _popup.IsOpen = true;
+
+            //}
+            _popup.IsOpen = true;
             _listBox.Visibility = Visibility.Visible;
 
         }
@@ -147,12 +171,87 @@ namespace GoogleMap.SDK.UI.WPF.Components.AutoComplete.Views
         }
 
 
-        private void autoCompleteTextBox_TextChanged(object sender, EventArgs e)
+        private async void autoCompleteTextBox_TextChanged(object sender, EventArgs e)
         {
             this.DebounceTime(async (state) =>
             {
                 await _presenter.GetRelatedOptions(this.Text);
             }, null, 500);
+        }
+
+        public static Style CreateListBoxStyle()
+        {
+            var style = new Style(typeof(ListBox));
+
+            style.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Color.FromRgb(30, 30, 30))));
+            style.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.White));
+            style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(10)));
+            style.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
+            style.Setters.Add(new Setter(Control.EffectProperty,
+                new DropShadowEffect
+                {
+                    BlurRadius = 15,
+                    ShadowDepth = 2,
+                    Opacity = 0.3,
+                    Color = Colors.Black
+                }));
+
+            style.Setters.Add(new Setter(Control.TemplateProperty, CreateListBoxControlTemplate()));
+
+            return style;
+        }
+
+        public static Style CreateListBoxItemStyle()
+        {
+            var style = new Style(typeof(ListBoxItem));
+
+            style.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Color.FromRgb(40, 40, 40))));
+            style.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.White));
+            style.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(10)));
+            style.Setters.Add(new Setter(Control.CursorProperty, System.Windows.Input.Cursors.Hand));
+            style.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(0)));
+
+            // Hover
+            var hoverTrigger = new Trigger
+            {
+                Property = UIElement.IsMouseOverProperty,
+                Value = true
+            };
+            hoverTrigger.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Color.FromRgb(55, 55, 55))));
+            style.Triggers.Add(hoverTrigger);
+
+            // Selected
+            var selectedTrigger = new Trigger
+            {
+                Property = ListBoxItem.IsSelectedProperty,
+                Value = true
+            };
+            selectedTrigger.Setters.Add(new Setter(Control.BackgroundProperty, new SolidColorBrush(Color.FromRgb(70, 70, 80))));
+            selectedTrigger.Setters.Add(new Setter(Control.ForegroundProperty, Brushes.White));
+            style.Triggers.Add(selectedTrigger);
+
+            return style;
+        }
+
+        private static ControlTemplate CreateListBoxControlTemplate()
+        {
+            var template = new ControlTemplate(typeof(ListBox));
+
+            var borderFactory = new FrameworkElementFactory(typeof(Border));
+            borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
+            borderFactory.SetValue(Border.BackgroundProperty, new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+
+            var scrollViewerFactory = new FrameworkElementFactory(typeof(ScrollViewer));
+            scrollViewerFactory.SetValue(ScrollViewer.FocusableProperty, false);
+            scrollViewerFactory.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
+
+            var itemsPresenter = new FrameworkElementFactory(typeof(ItemsPresenter));
+
+            scrollViewerFactory.AppendChild(itemsPresenter);
+            borderFactory.AppendChild(scrollViewerFactory);
+
+            template.VisualTree = borderFactory;
+            return template;
         }
     }
 }

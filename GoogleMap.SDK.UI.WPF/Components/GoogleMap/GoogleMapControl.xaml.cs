@@ -1,30 +1,19 @@
 ﻿using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsPresentation;
+using GoogleMap.SDK.Contract;
 using GoogleMap.SDK.Contract.Commons.Enums;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
+using GoogleMap.SDK.Contract.Components.Gmap.Models;
 using GoogleMap.SDK.Contracts.Commons.Models;
-using GoogleMap.SDK.Core;
 using GoogleMap.SDK.UI.WPF.MapOverlays;
-using GoogleMap.SDK.Contract;
-using GoogleMap.SDK.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Location = GoogleMap.SDK.Contracts.Commons.Models.Location;
 
 namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
@@ -36,6 +25,8 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
     {
         private readonly IMapOverlayService _mapOverlayService;
         private List<IOverlay> Overlays = new List<IOverlay>();
+
+        public event EventHandler<MarkerInfo> OnMarkerClicked;
 
         public Location Position
         {
@@ -61,30 +52,29 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             gmap.MouseWheelZoomType = MouseWheelZoomType.MousePositionAndCenter;
             gmap.DragButton = MouseButton.Left;
             _mapOverlayService = mapOverlayService;
-           
         }
 
-        public void CreateMarker(double lat, double lng, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(double lat, double lng, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object data = null, object toolTip = null)
         {
             var location = new Location(lat, lng);
             var locations = new List<Location>();
             locations.Add(location);
-            BuildMarkers(overlayName, locations, markerType, toolTip);
+            BuildMarkers(overlayName, locations, markerType, data, toolTip);
         }
-        public void CreateMarker(IEnumerable<Latlng> list, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(IEnumerable<Latlng> list, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object data = null, object toolTip = null)
         {
             var locations = list.Select(x=> new Location(x.latitude, x.longitude)).ToList();
-            BuildMarkers(overlayName, locations, markerType, toolTip);
+            BuildMarkers(overlayName, locations, markerType, data, toolTip);
         }
-        public void CreateMarker(IEnumerable<Location> locations, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(IEnumerable<Location> locations, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object data = null, object toolTip = null)
         {
-            BuildMarkers(overlayName, locations, markerType, toolTip);
+            BuildMarkers(overlayName, locations, markerType, data, toolTip);
         }
-        public void CreateMarker(Location location, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null)
+        public void CreateMarker(Location location, string overlayName = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object data = null, object toolTip = null)
         {
             List<Location> locations = new List<Location>();
             locations.Add(location);
-            BuildMarkers(overlayName, locations, markerType, toolTip);
+            BuildMarkers(overlayName, locations, markerType, data, toolTip);
         }
 
         public void CreateRoute(IEnumerable<Latlng> routePoints, string overlayName = "MapOverlay")
@@ -105,6 +95,14 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             BuildRoutes(overlayName, routes);
         }
 
+        public List<string> GetOverLays()
+        {
+            return _mapOverlayService.GetOverLays();
+        }
+        public void ClearOverlay()
+        {
+            _mapOverlayService.DeleteOverlay();
+        }
         public void ClearOverlay(string overlayName)
         {
             _mapOverlayService.DeleteOverlay(overlayName);
@@ -163,6 +161,8 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
         }
         private void ElementChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Console.WriteLine("test");
+            Console.WriteLine(e.Action);
             if(e.Action == NotifyCollectionChangedAction.Add)
             {
                 foreach(GMapMarker element in e.NewItems)
@@ -172,17 +172,19 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             }
             else if(e.Action == NotifyCollectionChangedAction.Remove)
             {
+                if (e.OldItems == null) return;
                 foreach (GMapMarker element in e.OldItems)
                 {
                     gmap.Markers.Remove(element);
                 }
             }
+
         }
-        private void BuildMarkers(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType, object toolTip)
+        private void BuildMarkers(string overlayName, IEnumerable<Location> locations, GMarkerGoogleType markerType,object data, object toolTip)
         {
             var iOverlay = _mapOverlayService.CreateOverlay(overlayName);
             TryAddOverlayInGmapControlOverlays(iOverlay);
-            _mapOverlayService.AddMarkers(locations, overlayName, markerType, toolTip);
+            _mapOverlayService.AddMarkers(locations, data, OnMarkerClicked, overlayName, markerType, toolTip);
             var move = locations.FirstOrDefault();
             SwitchGMapView(move.latLng.latitude, move.latLng.longitude);
         }
@@ -199,5 +201,14 @@ namespace GoogleMap.SDK.UI.WPF.Components.GoogleMap
             gmap.Zoom = 13;
             gmap.ShowCenter = true;
         }
+
+        public void ActivateRoute(int index, string overlayName = "MapOverlay")
+        {
+            var iOverlay = _mapOverlayService.GetOverlay(overlayName);
+            TryAddOverlayInGmapControlOverlays(iOverlay);
+            iOverlay.ActivateRoute(index);
+        }
+
+
     }
 }

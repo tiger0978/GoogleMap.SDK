@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using static GoogleMap.SDK.Contracts.Components.AutoComplete.Contracts.AutoCompleteContract;
+using System.Diagnostics;
 
 namespace GoogleMap.SDK.UI.WPF.Test
 {
@@ -37,9 +38,6 @@ namespace GoogleMap.SDK.UI.WPF.Test
         MapInfoToolTipData data = new MapInfoToolTipData();
         private PlaceDetailResponse _placeDetailInfo;
         private PlaceDetailResponse _endPlaceDetailInfo;
-
-
-
         private IGMap _gmap;
 
 
@@ -55,14 +53,23 @@ namespace GoogleMap.SDK.UI.WPF.Test
             _endAutoCompleteView = (PlaceAutoCompleteView)autoCompleteViews.FirstOrDefault(x => x is PlaceAutoCompleteView);
             _endAutoCompleteView.SelectedItem += GetEndInfomation;
             _gmap = gmap;
+            _gmap.OnMarkerClicked += _gmap_OnMarkerClicked;
             this.mapContainer.Children.Add((UserControl)_gmap);
             this.autoCompleteContainer.Children.Add(this._startAutoCompleteView);
             this.autoCompleteContainer.Children.Add(this._endAutoCompleteView);
+        }
 
+        private void _gmap_OnMarkerClicked(object sender, Contract.Components.Gmap.Models.MarkerInfo e)
+        {
+            Debug.WriteLine(((PlaceDetailResponse)e.Tag).result.name);
         }
 
         private async void GetDataInfomation(object sender, PlaceDetailResponse e)
         {
+            _gmap.CreateMarker(e.result.geometry.location.lat, e.result.geometry.location.lng);
+
+
+
             Console.WriteLine(e.result.name);
             _placeDetailInfo = e;
             data.Title = _placeDetailInfo.result.name;
@@ -71,6 +78,8 @@ namespace GoogleMap.SDK.UI.WPF.Test
 
         private async void GetEndInfomation(object sender, PlaceDetailResponse e)
         {
+            _gmap.CreateMarker(e.result.geometry.location.lat, e.result.geometry.location.lng);
+
             Console.WriteLine(e.result.name);
             _endPlaceDetailInfo = e;
             data.Title = _endPlaceDetailInfo.result.name;
@@ -110,33 +119,32 @@ namespace GoogleMap.SDK.UI.WPF.Test
                 MessageBox.Show($"你點了 marker：{info} ({marker.Position.Lat}, {marker.Position.Lng})");
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        { 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _gmap.ClearOverlay();
+            _gmap.ClearMarkers();
+            _gmap.ClearRoutes();
             var location = new Location(_placeDetailInfo.result.geometry.location.lat, _placeDetailInfo.result.geometry.location.lng);
-
+            
             var end = new Location(_endPlaceDetailInfo.result.geometry.location.lat, _endPlaceDetailInfo.result.geometry.location.lng);
 
             var tooltipStyle = (Style)FindResource("MapInfoToolTipStyle");
-
-
-
             // 建立 ToolTip 並綁定資料物件
             var toolTip = new ToolTip
             {
                 Style = tooltipStyle,
                 DataContext = data // 關鍵步驟！！
             };
-            _gmap.CreateMarker(location,"Test",GMarkerGoogleType.red_dot, toolTip);
-            _gmap.CreateMarker(end,"Test", GMarkerGoogleType.red_dot, toolTip);
+            _gmap.CreateMarker(location, "Test", GMarkerGoogleType.red_dot, _placeDetailInfo, toolTip);
+            _gmap.CreateMarker(end, "Test", GMarkerGoogleType.red_dot, _endPlaceDetailInfo, toolTip);
 
-            var route = _context.Direction.GetDirectionAsync(location, end, TrafficMode.TRANSIT, new List<Avoid>());
-            _gmap.CreateRoute(route.Result.routes[0].polyline.encodedPolyline);
+            var route = await _context.Direction.GetDirectionAsync(location, end, TrafficMode.DRIVE, new List<Avoid>());
+            var routes = route.routes.Select(x=>x.polyline.encodedPolyline.ToList()).ToList();
+
+            _gmap.CreateRoute(routes);
+            //_gmap.CreateRoute(route.routes[0].polyline.encodedPolyline);
         }
 
-        private void AddMarker(PlaceDetailResponse placeInfo)
-        {
-
-        }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -145,6 +153,11 @@ namespace GoogleMap.SDK.UI.WPF.Test
             locations.Add(location);
             _gmap.RemoveMarkerElement(locations, "Test");
 
+        }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            _gmap.ActivateRoute(1);
         }
     }
 }

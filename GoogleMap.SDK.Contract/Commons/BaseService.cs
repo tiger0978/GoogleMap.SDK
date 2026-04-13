@@ -29,6 +29,16 @@ namespace GoogleMap.SDK.API.Commons
             var response = await httpRequest.GetAsync<T>(url);
             return response;
         }
+
+        public async Task<byte[]> GetByteAsync<T>(string url)
+        {
+            url = $"{url}&key={apiKey}";
+            var response = await httpRequest.GetBytesAsync(url);
+            return response;
+        }
+
+
+
         public async Task<T> PostAsync<T>(string url, object data, JsonSerializerSettings settings = null)
         {
             var response = await httpRequest.PostAsync<T>(url, data, settings);

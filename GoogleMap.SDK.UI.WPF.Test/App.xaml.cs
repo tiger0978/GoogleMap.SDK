@@ -1,15 +1,11 @@
-﻿using System;
+﻿using GoogleMap.SDK.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using GoogleMap.SDK.Core;
-using GoogleMap.SDK.UI.WPF;
-using GoogleMap.SDK.UI.WPF;
-
-
 
 namespace GoogleMap.SDK.UI.WPF.Test
 {

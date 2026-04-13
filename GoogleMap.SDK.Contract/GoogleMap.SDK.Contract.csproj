@@ -80,7 +80,7 @@
     <Compile Include="Commons\BaseService.cs" />
     <Compile Include="Commons\Enums\Avoid.cs" />
     <Compile Include="Commons\Enums\FindPlaceInputType.cs" />
-    <Compile Include="Commons\Enums\GMarkerGoogle.cs" />
+    <Compile Include="Commons\Enums\GMarkerGoogleType.cs" />
     <Compile Include="Commons\Enums\MapOverlayType.cs" />
     <Compile Include="Commons\Enums\TrafficMode.cs" />
     <Compile Include="Commons\Models\Latlng.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="Components\Gmap\Contracts\IGMap.cs" />
     <Compile Include="Components\Gmap\Contracts\IMapOverlayService.cs" />
     <Compile Include="Components\Gmap\Contracts\IOverlay.cs" />
+    <Compile Include="Components\Gmap\Models\MarkerInfo.cs" />
     <Compile Include="GoogleAPI\IGoogleAPIContext.cs" />
     <Compile Include="GoogleAPI\Models\Direction\Request\DirectionNewRequest.cs" />
     <Compile Include="GoogleAPI\Models\Direction\Request\DirectionRequest.cs" />

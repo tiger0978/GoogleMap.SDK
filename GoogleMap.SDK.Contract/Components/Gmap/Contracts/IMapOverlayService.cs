@@ -1,4 +1,5 @@
 ﻿using GoogleMap.SDK.Contract.Commons.Enums;
+using GoogleMap.SDK.Contract.Components.Gmap.Models;
 using GoogleMap.SDK.Contracts.Commons.Models;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace GoogleMap.SDK.Contract.Components.Gmap.Contracts
 {
     public interface IMapOverlayService
     {
+        List<string> GetOverLays();
         IOverlay CreateOverlay(string overlayId = "MapOverlay");
-        IOverlay AddMarkers(IEnumerable<Location> locations, string overlayId = "MapOverlay",  GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
+        IOverlay AddMarkers(IEnumerable<Location> locations, object data, EventHandler<MarkerInfo> clickEvent, string overlayId = "MapOverlay", GMarkerGoogleType markerType = GMarkerGoogleType.red_dot, object toolTip = null);
         IOverlay AddRoutes(IEnumerable<List<Latlng>> routes, string overlayId = "MapOverlay");
         void DeleteMarkers(string overlayId = "MapOverlay");
         void DeleteRoutes(string overlayId = "MapOverlay");
+        void DeleteOverlay();
         IOverlay DeleteOverlay(string overlayId = "MapOverlay");
         void DeleteMarkerElement(object element, string overlayId = "MapOverlay");
         void DeleteRouteElement(object element, string overlayId = "MapOverlay");

@@ -26,7 +26,7 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Responses
             public string copyrights { get; set; }
             public Leg[] legs { get; set; }
             public Overview_Polyline overview_polyline { get; set; }
-            public string summary { get; set; }
+            public string description { get; set; }
             public object[] warnings { get; set; }
             public int[] waypoint_order { get; set; }
         }
@@ -107,5 +107,9 @@ namespace GoogleMap.SDK.Contracts.GoogleAPI.Models.Responses
         {
             public string points { get; set; }
         }
+
+
+
+
     }
 }

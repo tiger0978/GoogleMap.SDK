@@ -18,6 +18,6 @@ namespace GoogleMap.SDK.Contracts.Services
         Task<NearBySearchResponse> NearBySearchAsync(string location, string radius);
         Task<PlaceAutoCompleteRespnse> PlaceAutoCompleteAsync(string input);
         Task<PlaceDetailResponse> PlaceDetailAsync(string place_id);
-        Task<Bitmap> PlacePhotoAsync(string photo_reference, int maxheight);
+        Task<Byte[]> PlacePhotoAsync(string photo_reference, int maxheight);
     }
 }

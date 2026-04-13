@@ -1,18 +1,16 @@
-﻿using GMap.NET.WindowsForms.Markers;
+﻿using GMap.NET;
 using GMap.NET.WindowsForms;
-using GMap.NET;
+using GMap.NET.WindowsForms.Markers;
 using GoogleMap.SDK.Contract.Components.Gmap.Contracts;
+using GoogleMap.SDK.Contract.Utility;
 using GoogleMap.SDK.Contracts.Commons.Models;
+using GoogleMap.SDK.Core.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GoogleMap.SDK.Core.Utility;
-using MarkerType = GoogleMap.SDK.Contract.Commons.Enums.GMarkerGoogleType;
-using GoogleMarkerType = GMap.NET.WindowsForms.Markers.GMarkerGoogleType;
-using GoogleMap.SDK.Contract.Utility;
 using System.Drawing;
+using System.Linq;
+using GoogleMarkerType = GMap.NET.WindowsForms.Markers.GMarkerGoogleType;
+using MarkerType = GoogleMap.SDK.Contract.Commons.Enums.GMarkerGoogleType;
 
 
 namespace GoogleMap.SDK.UI.Winform.MapOverlays

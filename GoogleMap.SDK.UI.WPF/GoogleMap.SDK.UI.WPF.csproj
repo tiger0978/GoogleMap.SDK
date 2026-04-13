@@ -30,9 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-	<PropertyGroup>
-		<LangVersion>latest</LangVersion>
-	</PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -141,8 +141,11 @@
       <DependentUpon>GoogleMapControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="GoogleMapWPFMapRegistration.cs" />
-    <Compile Include="MapInfoToolTipData.cs" />
+    <Compile Include="Styles\MapInfoToolTipData.cs" />
     <Compile Include="MapOverlays\MapOverlay.cs" />
+    <Compile Include="Themes\Generic.xaml.cs">
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TooltipData.cs" />
     <Compile Include="Utility\Extensions\DebounceExtension.cs" />
     <Page Include="Components\GoogleMap\GoogleMapControl.xaml">
@@ -158,11 +161,15 @@
     <Compile Include="Components\AutoComplete\Views\PlaceAutoCompleteView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Page Include="CustomToolTipStyle.xaml">
+    <Resource Include="Styles\CustomToolTipStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MapInfoToolTipStyle.xaml">
+    </Resource>
+    <Resource Include="Styles\MapInfoToolTipStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,7 +214,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-	  <EmbeddedResource Include="Resources\**\*.*" />
+    <EmbeddedResource Include="Resources\**\*.*" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />

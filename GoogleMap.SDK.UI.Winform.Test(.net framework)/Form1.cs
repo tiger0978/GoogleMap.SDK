@@ -48,6 +48,9 @@ namespace GoogleMap.SDK.UI.Winform.Test_.net_framework_
 
         private async void button1_Click(object sender, EventArgs e)
         {
+
+            var result = await GetDirectAsync();
+
             var overlayName = textBox1.Text;
             if (string.IsNullOrEmpty(overlayName))
             {

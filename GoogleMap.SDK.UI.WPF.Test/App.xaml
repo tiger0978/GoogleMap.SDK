@@ -6,8 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/GoogleMap.SDK.UI.WPF;component/CustomToolTipStyle.xaml"/>
-                <ResourceDictionary Source="/GoogleMap.SDK.UI.WPF;component/MapInfoToolTipStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/GoogleMap.SDK.UI.WPF;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
